@@ -20,13 +20,13 @@ class MainActivity : AppCompatActivity() {
     //
 
     // Difficulty row buttons
-    lateinit var btnEasy : Button
-    lateinit var btnMedium : Button
-    lateinit var btnHard : Button
+    lateinit var btnEasy: Button
+    lateinit var btnMedium: Button
+    lateinit var btnHard: Button
 
     // Reset Help row buttons
-    lateinit var btnReset : Button
-    lateinit var btnHelp : Button
+    lateinit var btnReset: Button
+    lateinit var btnHelp: Button
 
 
 //    lateinit var layouts : LinearLayout
@@ -37,11 +37,11 @@ class MainActivity : AppCompatActivity() {
         title = "KotlinApp"
 
 
-        var llGame = layoutGame(this)
+        val llGame = layoutGame(this)
 
-        var llAuxiliaries = layoutAuxiliaries(this)
+        val llAuxiliaries = layoutAuxiliaries(this)
 
-        var flWholePage = buildFrameLayout(this, llGame, llAuxiliaries)
+        val flWholePage = buildFrameLayout(this, llGame, llAuxiliaries)
 
         setContentView(flWholePage)
 
@@ -95,9 +95,9 @@ class MainActivity : AppCompatActivity() {
         llAuxiliaries: LinearLayout
     ): FrameLayout {
 
-        var frameLayout = FrameLayout(context)
-        var gameFrameLayout = FrameLayout(context)
-        var auxiliariesFrameLayout = FrameLayout(context)
+        val frameLayout = FrameLayout(context)
+        val gameFrameLayout = FrameLayout(context)
+        val auxiliariesFrameLayout = FrameLayout(context)
 
         // Deal with Game --- set to top of page
         gameFrameLayout.layoutParams = FrameLayout.LayoutParams(
@@ -106,16 +106,29 @@ class MainActivity : AppCompatActivity() {
             Gravity.CENTER_HORIZONTAL
         )
 
+        gameFrameLayout.setBackgroundColor(
+            ContextCompat.getColor(
+                context,
+                R.color.purple_200
+            )
+        )
+
         gameFrameLayout.addView(llGame, gameFrameLayout.layoutParams)
 
 
         // Deal with Auxiliaries --- set to bottom of page
         auxiliariesFrameLayout.layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT,
-            FrameLayout.LayoutParams.WRAP_CONTENT,
-            Gravity.BOTTOM
+            FrameLayout.LayoutParams.WRAP_CONTENT ,
+            Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
         )
 
+        auxiliariesFrameLayout.setBackgroundColor(
+            ContextCompat.getColor(
+                context,
+                R.color.purple_700
+            )
+        )
 
         auxiliariesFrameLayout.addView(llAuxiliaries, auxiliariesFrameLayout.layoutParams)
 
@@ -167,7 +180,7 @@ class MainActivity : AppCompatActivity() {
                     marginSeparation
                 )
 //                btn.text = "Button " + (j + 1 + i * 4)
-                var tag = (c + 1 + r * 4)
+                val tag = (c + 1 + r * 4)
                 btn.text = "" + tag
                 btn.id = tag
                 btn.setBackgroundColor((Color.CYAN))
@@ -176,7 +189,6 @@ class MainActivity : AppCompatActivity() {
 //                btn.setBackgroundResource(R.drawable.border_button);
 
                 btn.width = 100
-
 
                 row.addView(btn)
             }
@@ -191,7 +203,7 @@ class MainActivity : AppCompatActivity() {
 
     fun layoutAuxiliaries(context: Context): LinearLayout {
 
-        var auxiliariesLayout = LinearLayout(context)
+        val auxiliariesLayout = LinearLayout(context)
         auxiliariesLayout.orientation = LinearLayout.VERTICAL
 
         val rowLayoutDifficulties = buildDifficultyRowLayout(context)
@@ -203,7 +215,6 @@ class MainActivity : AppCompatActivity() {
 
         return auxiliariesLayout
     }
-
 
 
     private fun buildDifficultyRowLayout(context: Context): LinearLayout {
@@ -222,7 +233,7 @@ class MainActivity : AppCompatActivity() {
         val btn_id_hard = 102
 
 
-        var rowDifficulties: LinearLayout = LinearLayout(this)
+        val rowDifficulties = LinearLayout(this)
 
 
         rowDifficulties.layoutParams = LinearLayout.LayoutParams(
@@ -238,7 +249,8 @@ class MainActivity : AppCompatActivity() {
         rowDifficulties.addView(btnEasy)
 
         // Medium
-        btnMedium = makeAuxiliaryButton(context, btn_id_medium, "Medium", R.color.difficulty_button_medium)
+        btnMedium =
+            makeAuxiliaryButton(context, btn_id_medium, "Medium", R.color.difficulty_button_medium)
         rowDifficulties.addView(btnMedium)
 
         // Hard
@@ -253,7 +265,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun buildResetHelpRowLayout(context: Context): LinearLayout {
-        val marginSeparation = 20
+//        val marginSeparation = 20
 
         val layout = LinearLayout(context)
         layout.orientation = LinearLayout.HORIZONTAL
@@ -264,11 +276,10 @@ class MainActivity : AppCompatActivity() {
         //
 
 
-
         val btn_id_reset = 200
         val btn_id_help = 201
 
-        var rowResetHelp: LinearLayout = LinearLayout(this)
+        val rowResetHelp = LinearLayout(this)
 
 
         rowResetHelp.layoutParams = LinearLayout.LayoutParams(
@@ -280,7 +291,8 @@ class MainActivity : AppCompatActivity() {
 
 
         // Reset
-        btnReset = makeAuxiliaryButton(context, btn_id_reset, "Reset", R.color.reset_help__button_reset)
+        btnReset =
+            makeAuxiliaryButton(context, btn_id_reset, "Reset", R.color.reset_help__button_reset)
         rowResetHelp.addView(btnReset)
 
         // Help
