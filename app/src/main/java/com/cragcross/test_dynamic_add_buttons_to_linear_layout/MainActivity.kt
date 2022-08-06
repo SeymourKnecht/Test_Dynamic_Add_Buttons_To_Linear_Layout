@@ -36,11 +36,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         title = "KotlinApp"
 
+//        val llTopSpaceBar = layoutGame(this)
 
         val llGame = layoutGame(this)
 
         val llAuxiliaries = layoutAuxiliaries(this)
 
+//        val flWholePage = buildFrameLayout(this, llTopSpaceBar, llGame, llAuxiliaries)
         val flWholePage = buildFrameLayout(this, llGame, llAuxiliaries)
 
         setContentView(flWholePage)
@@ -91,15 +93,33 @@ class MainActivity : AppCompatActivity() {
 
     fun buildFrameLayout(
         context: Context,
+//        llTopSpaceBar: LinearLayout,
         llGame: LinearLayout,
         llAuxiliaries: LinearLayout
     ): FrameLayout {
 
+//        val topSpaceFrameLayout = FrameLayout(context)
         val frameLayout = FrameLayout(context)
         val gameFrameLayout = FrameLayout(context)
         val auxiliariesFrameLayout = FrameLayout(context)
 
-        // Deal with Game --- set to top of page
+//        // Deal with top space layout --- set to to of page
+//        topSpaceFrameLayout.layoutParams = FrameLayout.LayoutParams(
+//            FrameLayout.LayoutParams.WRAP_CONTENT,
+//            600,
+//            Gravity.CENTER_HORIZONTAL
+//        )
+//
+//        topSpaceFrameLayout.setBackgroundColor(
+//            ContextCompat.getColor(
+//                context,
+//                R.color.black
+//            )
+//        )
+//
+//        gameFrameLayout.addView(llTopSpaceBar, topSpaceFrameLayout.layoutParams)
+
+        // Deal with Game --- set to near of page
         gameFrameLayout.layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT,
             FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -132,6 +152,7 @@ class MainActivity : AppCompatActivity() {
 
         auxiliariesFrameLayout.addView(llAuxiliaries, auxiliariesFrameLayout.layoutParams)
 
+//        frameLayout.addView(topSpaceFrameLayout)
         frameLayout.addView(gameFrameLayout)
         frameLayout.addView(auxiliariesFrameLayout)
 
@@ -144,10 +165,13 @@ class MainActivity : AppCompatActivity() {
         val screenHeight = config.screenHeightDp
         val screenHeightToWidthRatio = (screenHeight * 1.0) / screenWidth
 
-        val marginSeparation = 20
+        val marginSeparation = 10
 
-        val tileHeight = 100
-        val tileWidth = (tileHeight / screenHeightToWidthRatio).roundToInt() + 45
+        val tileHeight = 200
+        val tileWidth = tileHeight //(tileHeight / screenHeightToWidthRatio).roundToInt() + 45
+
+        val rowWidth = (4 * tileWidth) + ( 8 * marginSeparation)
+        val rowHeight = (1 * tileHeight) + ( 2 * marginSeparation)
 
         val layout = LinearLayout(context)
         layout.orientation = LinearLayout.VERTICAL
@@ -159,8 +183,8 @@ class MainActivity : AppCompatActivity() {
             row.layoutParams = LinearLayout.LayoutParams(
 //                LinearLayout.LayoutParams.WRAP_CONTENT,
 //                LinearLayout.LayoutParams.WRAP_CONTENT
-                600,
-                300
+                rowWidth,
+                rowHeight
             )
 //            (row.layoutParams as LinearLayout.LayoutParams).setMargins(60, 20,30, 10)
             layout.gravity = Gravity.CENTER
