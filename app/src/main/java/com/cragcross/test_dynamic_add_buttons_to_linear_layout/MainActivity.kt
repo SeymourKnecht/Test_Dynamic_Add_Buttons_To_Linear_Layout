@@ -183,6 +183,7 @@ class MainActivity : AppCompatActivity() {
 
     fun layoutGame(context: Context): LinearLayout {
         val config = resources.configuration
+        // May use later
 //        val screenWidth = config.screenWidthDp
 //        val screenHeight = config.screenHeightDp
 //        val screenHeightToWidthRatio = (screenHeight * 1.0) / screenWidth
