@@ -2,8 +2,10 @@ package com.cragcross.test_dynamic_add_buttons_to_linear_layout
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Color.GREEN
 import android.os.Bundle
 import android.view.Gravity
+import android.view.Gravity.CENTER
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -36,13 +38,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         title = "KotlinApp"
 
-//        val llTopSpaceBar = layoutGame(this)
-
         val llGame = layoutGame(this)
 
         val llAuxiliaries = layoutAuxiliaries(this)
 
-//        val flWholePage = buildFrameLayout(this, llTopSpaceBar, llGame, llAuxiliaries)
         val flWholePage = buildFrameLayout(this, llGame, llAuxiliaries)
 
         setContentView(flWholePage)
@@ -93,37 +92,24 @@ class MainActivity : AppCompatActivity() {
 
     fun buildFrameLayout(
         context: Context,
-//        llTopSpaceBar: LinearLayout,
         llGame: LinearLayout,
         llAuxiliaries: LinearLayout
     ): FrameLayout {
 
-//        val topSpaceFrameLayout = FrameLayout(context)
         val frameLayout = FrameLayout(context)
+
+        val upperFrameLayout = FrameLayout(context)
+        val gameBackgroundFrameLayout = FrameLayout(context)
+
         val gameFrameLayout = FrameLayout(context)
         val auxiliariesFrameLayout = FrameLayout(context)
 
-//        // Deal with top space layout --- set to to of page
-//        topSpaceFrameLayout.layoutParams = FrameLayout.LayoutParams(
-//            FrameLayout.LayoutParams.WRAP_CONTENT,
-//            600,
-//            Gravity.CENTER_HORIZONTAL
-//        )
-//
-//        topSpaceFrameLayout.setBackgroundColor(
-//            ContextCompat.getColor(
-//                context,
-//                R.color.black
-//            )
-//        )
-//
-//        gameFrameLayout.addView(llTopSpaceBar, topSpaceFrameLayout.layoutParams)
 
         // Deal with Game --- set to near of page
         gameFrameLayout.layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT,
             FrameLayout.LayoutParams.WRAP_CONTENT,
-            Gravity.CENTER_HORIZONTAL
+            CENTER
         )
 
         gameFrameLayout.setBackgroundColor(
@@ -134,6 +120,40 @@ class MainActivity : AppCompatActivity() {
         )
 
         gameFrameLayout.addView(llGame, gameFrameLayout.layoutParams)
+
+        // Add game to darker background frame layout
+        gameBackgroundFrameLayout.layoutParams = FrameLayout.LayoutParams(
+            900, //FrameLayout.LayoutParams.WRAP_CONTENT,
+            900, //FrameLayout.LayoutParams.WRAP_CONTENT,
+            CENTER
+        )
+
+        gameBackgroundFrameLayout.setBackgroundColor(
+            ContextCompat.getColor(
+                context,
+                R.color.purple_700
+            )
+        )
+
+        gameBackgroundFrameLayout.addView(gameFrameLayout)
+
+        // Add darker background frame layout to taller layout to allow better positioning of game
+        upperFrameLayout.layoutParams = FrameLayout.LayoutParams(
+            900, //FrameLayout.LayoutParams.WRAP_CONTENT,
+            1200, //FrameLayout.LayoutParams.WRAP_CONTENT,
+            Gravity.CENTER_HORIZONTAL
+        )
+
+        upperFrameLayout.setBackgroundColor(
+            ContextCompat.getColor(
+                context,
+                R.color.android_window_background   //R.color.black
+            )
+        )
+
+        upperFrameLayout.addView(gameBackgroundFrameLayout)
+
+
 
 
         // Deal with Auxiliaries --- set to bottom of page
@@ -146,24 +166,26 @@ class MainActivity : AppCompatActivity() {
         auxiliariesFrameLayout.setBackgroundColor(
             ContextCompat.getColor(
                 context,
-                R.color.purple_700
+                R.color.purple_500
             )
         )
 
         auxiliariesFrameLayout.addView(llAuxiliaries, auxiliariesFrameLayout.layoutParams)
 
-//        frameLayout.addView(topSpaceFrameLayout)
-        frameLayout.addView(gameFrameLayout)
+        // Fianl aet-up
+        frameLayout.addView(upperFrameLayout)
         frameLayout.addView(auxiliariesFrameLayout)
 
         return frameLayout
     }
 
+
+
     fun layoutGame(context: Context): LinearLayout {
         val config = resources.configuration
-        val screenWidth = config.screenWidthDp
-        val screenHeight = config.screenHeightDp
-        val screenHeightToWidthRatio = (screenHeight * 1.0) / screenWidth
+//        val screenWidth = config.screenWidthDp
+//        val screenHeight = config.screenHeightDp
+//        val screenHeightToWidthRatio = (screenHeight * 1.0) / screenWidth
 
         val marginSeparation = 10
 
@@ -187,7 +209,7 @@ class MainActivity : AppCompatActivity() {
                 rowHeight
             )
 //            (row.layoutParams as LinearLayout.LayoutParams).setMargins(60, 20,30, 10)
-            layout.gravity = Gravity.CENTER
+            layout.gravity = CENTER
             for (c in 0..3) {
                 val btn = Button(this)
                 btn.layoutParams = LinearLayout.LayoutParams(
@@ -205,7 +227,7 @@ class MainActivity : AppCompatActivity() {
                 )
 //                btn.text = "Button " + (j + 1 + i * 4)
                 val tag = (c + 1 + r * 4)
-                btn.text = "" + tag
+                ("" + tag).also { btn.text = it }
                 btn.id = tag
                 btn.setBackgroundColor((Color.CYAN))
 
@@ -265,7 +287,7 @@ class MainActivity : AppCompatActivity() {
             300
         )
 
-        rowDifficulties.gravity = Gravity.CENTER
+        rowDifficulties.gravity = CENTER
 
 
         // Easy
@@ -311,7 +333,7 @@ class MainActivity : AppCompatActivity() {
             300
         )
 
-        rowResetHelp.gravity = Gravity.CENTER
+        rowResetHelp.gravity = CENTER
 
 
         // Reset

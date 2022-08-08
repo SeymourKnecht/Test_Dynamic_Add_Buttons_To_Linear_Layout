@@ -7,6 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+<!--    Android Window background color-->
+    <color name="android_window_background">#FF202030</color>
+
 <!--Auxiliary buttons-->
 <!--    Difficulty buttons-->
     <color name="difficulty_button_easy">#FF0FB703</color>
